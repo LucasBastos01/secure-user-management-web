@@ -1,0 +1,13 @@
+.dashboard-container.admin {
+  padding: 32px;
+}
+
+.dashboard-container.admin h1 {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #b91c1c;
+}
+
+.dashboard-container.admin p {
+  color: #555;
+}

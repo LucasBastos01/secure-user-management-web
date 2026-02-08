@@ -1,0 +1,32 @@
+.notfound-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f6f8;
+}
+
+.notfound-box {
+  background: #ffffff;
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.notfound-box h1 {
+  font-size: 64px;
+  margin-bottom: 8px;
+  color: #4f46e5;
+}
+
+.notfound-box h2 {
+  margin-bottom: 12px;
+}
+
+.notfound-box p {
+  color: #555;
+  margin-bottom: 24px;
+}
