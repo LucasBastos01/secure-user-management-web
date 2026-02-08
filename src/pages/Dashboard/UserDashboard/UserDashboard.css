@@ -10,3 +10,12 @@
 .dashboard-container p {
   color: #555;
 }
+
+.logout {
+  margin-top: 24px;
+  background-color: #ef4444;
+}
+
+.logout:hover {
+  opacity: 0.9;
+}

@@ -1,26 +1,38 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Login.css'
 import { useLoading } from '../../context/LoadingContext'
 import { toast } from 'react-toastify'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { loading, setLoading } = useLoading()
+  const { login } = useAuth()
+
+  const navigate = useNavigate()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
 
     try {
-      // aqui depois entra a API
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      const user = await login(email, password)
 
-      console.log({ email, password })
+      const route =
+        user.type === 'admin'
+          ? '/admin/dashboard'
+          : '/dashboard'
+
+      navigate(route)
       toast.success('Login realizado com sucesso!')
-    } catch {
-      toast.error('Erro ao fazer login')
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error('Erro inesperado')
+      }
     } finally {
       setLoading(false)
     }

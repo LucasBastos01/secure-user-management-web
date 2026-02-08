@@ -2,7 +2,8 @@ import { useState } from 'react'
 import './Register.css'
 import { toast } from 'react-toastify'
 import { useLoading } from '../../context/LoadingContext'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { register } from '../../services/auth.service'
 
 export default function Register() {
   const [name, setName] = useState('')
@@ -10,23 +11,34 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const { loading, setLoading } = useLoading()
+
+  const navigate = useNavigate()
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
 
     if (password !== confirmPassword) {
-      return toast.error('Senhas não conferem!')
+      return toast.error('Senhas não conferem!')
     }
 
     setLoading(true)
 
     try {
-      // aqui depois entra a API
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await register({
+        name,
+        email,
+        password,
+        confirm_password: confirmPassword,
+      })
 
-      console.log({ name, email, password })
       toast.success('Conta criada com sucesso!')
-    } catch {
-      toast.error('Erro ao criar conta')
+      navigate('/login')
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error('Erro inesperado')
+      }
     } finally {
       setLoading(false)
     }
